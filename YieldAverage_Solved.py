@@ -25,16 +25,16 @@ def wafer_yield_count(list):
     count = 0
     if len(list) == 0:
         raise ValueError("Error: Wafer lot is empty.")
-        
-    for i in list:
-        if i is None or isinstance(i, str):
-            continue
-        elif len(list) > 25:
-            raise ValueError("Error: Wafer lot exceeds limit of 25 wafers.")
-            break
-        else:
-            count += 1
-            
+    else:
+        for i in list:
+            if i is None or isinstance(i, str):
+                continue
+            elif len(list) > 25:
+                raise ValueError("Error: Wafer lot exceeds limit of 25 wafers.")
+                break
+            else:
+                count += 1
+                     
     return count
 
 
