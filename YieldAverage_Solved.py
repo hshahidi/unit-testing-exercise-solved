@@ -1,49 +1,85 @@
-def wafer_yield_sum(list):
-    total = 0
-
-    for i in list:
-        if i is None or isinstance(i, str):
-            continue
-        elif i > 100:
-            raise ValueError("Error: Values out of range. Please enter wafer yield as a decimal between 0 and 1.")
-            break
-        elif i < 0:
-            raise ValueError("Error: Values out of range. Please enter wafer yield as a decimal between 0 and 1.")
-            break
-        else:
-            #converting percents into their decimal equivalents
-            if i > 1:
-                i = i / 100
-                total += i
-            else:
-                total += i 
-                    
-    return round(total, 4)
-
-  
-def wafer_yield_count(list):
-    count = 0
+"""
+Assess Wafer Yield:
+This function checks the wafer lot for all the acceptance test criteria that were outlined.
+it will return the final list that passess all criteria.
+"""
+def assess_wafer_yield(list):
     if len(list) == 0:
         raise ValueError("Error: Wafer lot is empty.")
+
+    elif len(list) > 25:
+        raise ValueError("Error: Wafer lot exceeds limit of 25 wafers.")
+
     else:
-        for i in list:
-            if i is None or isinstance(i, str):
-                continue
-            elif len(list) > 25:
-                raise ValueError("Error: Wafer lot exceeds limit of 25 wafers.")
-                break
+        for i, value in enumerate(list):
+            if value is None:
+                del list[i]
+                
             else:
-                count += 1
-                     
+                if isinstance(value, str):
+                    list[i] = float(value)
+
+                elif  value > 100:
+                    raise ValueError("Error: Values out of range. Please enter wafer yield as a decimal between 0 and 1.")
+                    break
+
+                elif value < 0:
+                    raise ValueError("Error: Values out of range. Please enter wafer yield as a decimal between 0 and 1.")
+                    break
+
+                elif value > 1:
+                    list[i] = round(float(value / 100), 4)               
+    return list
+
+
+"""
+Array Sum:
+Modularized Sum function that can be applied to any part of your code.
+"""
+def array_sum(list):
+    total = 0
+    
+    for i in list:
+        total += i 
+                    
+    return total
+
+"""
+Array Count:
+Modularized Count function that can be applied to any part of your code.
+"""
+def array_count(list):
+    count = 0
+    for i in list:
+         count += 1
     return count
 
 
+"""
+Divide:
+Returns the divided result with additional error handling for division by zero.
+Promotes modularization with the code.
+"""
 def divide(numerator, denominator):
-    return round(numerator/denominator, 4)
+    if denominator == 0:
+        raise ValueError("Error: Cannot divide by zero.")
+    else:
+        return round(numerator/denominator, 4)
 
 
+"""
+Lot Yield Average:
+This function first passes the wafer lot to assess_wafer_yield to check if all criteria pass.
+Then the checked list is passed into the other functions for computing average.
+"""
 def lot_yield_average(list):
-    return divide(wafer_yield_sum(list), wafer_yield_count(list))
+    checked_list = assess_wafer_yield(list)
+    return divide(array_sum(checked_list), array_count(checked_list))
+
+     
+
+
+    
 
 
 
