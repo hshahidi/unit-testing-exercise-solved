@@ -34,7 +34,7 @@ def test_contains_0_and_1():
 Contains elements between 0 and 1 and NULL types values.
 Should return list with NULL types removed.
 """
-def test_should_ignore_blank_inputs():
+def test_should_convert_blank_inputs():
     wafer_lot_3 = [0.1234, 0.5678, 0.3456, 0.9876, 0.4321, None, 0.5432, 0.0002, 0.1098, 0.125, 0.4321, 
     None, 0.5678, 0.365, None, 0.2386, 0.156, 0.6543, 0.0123, 0.3356, 0.3456, 0.219, 0.4567, 0.1898]
     
@@ -155,10 +155,10 @@ def test_varying_lengths_of_decimal_returns_rounded_up_average():
     assert expected_result == 0.5564
 
 """
-Expected result should average all valid inputs and ignore blank wafer inputs.
+Expected result should average all valid inputs and convert blank wafer inputs.
 Wafer lot contains decimals between 0 and 1 inclusive and blank wafer inputs.
 """
-def test_ignore_blank_inputs():
+def test_convert_blank_inputs():
     wafer_lot_4 = [0.1234, 0.5678, 0.3456, 0.9876, 0.4321, None, 0.5432, 0.0002, 0.1098, 0.125,
     0.4321, None, 0.5678, 0.365, None, 0.2386, 0.156, 0.6543, 0.0123,
     0.3356, 0.3456, 0.219, 0.4567, 0.1898]
@@ -205,9 +205,9 @@ def test_average_all_converted_inputs():
 
 """
 Expected result should average all the inputs that are in decimal format.
-Wafer lot contains some input strings that should be ignored.
+Wafer lot contains some input strings that should be converted.
 """
-def test_ignores_all_string_inputs():
+def test_converts_all_string_inputs():
     wafer_lot_8 = [0.9234, 0.8678, 0.8456, 0.9876, 0.7321, 0.8789, 0.8432, 0.8765, 0.1098, 0.9765,
     0.7321, 0.5345, 0.5678, 0.8765, "0.9876", 0.9456, 0.7890, 0.7987, 0.6543, 0.6123,
     0.8765, "0.9456", "0.7890", 0.7567, 0.8901]
